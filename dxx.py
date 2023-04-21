@@ -20,7 +20,7 @@ import json
 requests.urllib3.disable_warnings()
 
 #初始化环境变量开头
-ZData = 5
+ZData = "5"
 ttoken = ""
 tuserid = ""
 push_token = ""
@@ -243,18 +243,21 @@ class dxxanelQd(object):
 
     def main(self):
         global msgs
+        #检测星期几
+        a=time.localtime()
+        a = time.strftime("%w",a)
         # 获取token
         access_token = self.getAccessToken(openid)
-        # 获取最新的章节
-        current_course = self.getCurrentCourse(access_token,msg)
         #每日签到
         self.sign = self.getsign(access_token,msg)
         #每日任务
         self.Tasks = self.getTasks(access_token,msg)
-        # 打卡任务
+        # 打卡任务(默认每周五执行)
         if a == ZData:
-            res = self.getJoin(access_token, current_course, nid,cardNo,msg)
+            # 获取最新的打卡章节
             print("今日为星期" + ZData + ",开始打卡")
+            current_course = self.getCurrentCourse(access_token,msg)
+            res = self.getJoin(access_token, current_course, nid,cardNo,msg)
         else:
             msgs = msgs + '\n' + "今日未星期" + str(a) + "未到达设定星期" + str(ZData) + ",跳过打卡"
             print("今日未星期" + str(a) + "未到达设定的星期" + str(ZData) + ",跳过打卡")
