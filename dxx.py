@@ -7,6 +7,7 @@
 //例如: 
 o****1, 123 ,1684
 o****2, 66 ,1546
+//更新内容：打卡任务每周执行一次
 //如需推送将需要的推送写入变量dxx_fs即可多个用&隔开
 如:变量内输入push需再添加dxx_push变量 内容是push的token即可
 """
@@ -19,6 +20,7 @@ import json
 requests.urllib3.disable_warnings()
 
 #初始化环境变量开头
+ZData = 5
 ttoken = ""
 tuserid = ""
 push_token = ""
@@ -245,12 +247,17 @@ class dxxanelQd(object):
         access_token = self.getAccessToken(openid)
         # 获取最新的章节
         current_course = self.getCurrentCourse(access_token,msg)
-        # 打卡任务
-        res = self.getJoin(access_token, current_course, nid,cardNo,msg)
         #每日签到
         self.sign = self.getsign(access_token,msg)
         #每日任务
         self.Tasks = self.getTasks(access_token,msg)
+        # 打卡任务
+        if a == ZData:
+            res = self.getJoin(access_token, current_course, nid,cardNo,msg)
+            print("今日为星期" + ZData + ",开始打卡")
+        else:
+            msgs = msgs + '\n' + "今日未星期" + str(a) + "未到达设定星期" + str(ZData) + ",跳过打卡"
+            print("今日未星期" + str(a) + "未到达设定的星期" + str(ZData) + ",跳过打卡")
         #积分查询
         self.info = self.getinfo(access_token,msg)
         #"大学习签到结果",
