@@ -5,7 +5,7 @@
 ## 青龙变量
 | 参数 | 说明                     |  格式  |
 | ---- | -----------------------  |  -------  |
-| dxx  | openid，名字，区域 |  openid(抓包获得), 名字(cardNo) ,区域(nid)  多账号用回车隔开  |
+| dxx  | openid，名字，区域 |  openid(抓包获得), 名字(cardNo) ,部门或学校(nid)  多账号用回车隔开  |
 | dxx_fs  | 推送的平台 |  多个平台使用&隔开 支持push,kt,stb,qm,tel  |
 | dxx_push  | Pushplus的推送token |  token  |
 | dxx_ktkey  | 酷推的key |  key  |
